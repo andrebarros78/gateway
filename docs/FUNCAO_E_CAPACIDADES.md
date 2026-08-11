@@ -5,17 +5,13 @@
 O **gateway** é a porta controlada entre Pipo e a infraestrutura local.
 
 ```
-Pipo
+IA
   ↓
 Gateway
   ↓
 TUNEL-CORE
   ↓
-Supervisor / Watchdog
-  ↓
-Túnel
-  ↓
-Windows MCP
+
 ```
 
 Ele recebe pedidos de IA, aplica regras de acesso e encaminha somente o tráfego autorizado ao TUNEL-CORE. Ele não substitui o túnel, não executa comandos no Windows e não guarda a chave da OpenAI no código.
@@ -73,8 +69,7 @@ Ela não é o gateway em operação contínua. Ela é apenas a prova controlada 
 
 - Cadastrar `OPENAI_API_KEY` como segredo do GitHub.
 - Executar a Action e obter `OPENAI_API_CONNECTION=OK`.
-- Instalar o Agentgateway no TUNEL-CORE.
-- Integrar o Supervisor / Watchdog, o túnel e o Windows MCP.
+- Instalar o Agentgateway 
 - Validar reinício, recuperação e bloqueio de acesso não autorizado.
 
-**Conclusão:** o gateway está preparado como módulo de conexão e controle da IA; ele ainda não está operando ponta a ponta até o Windows MCP.
+**Conclusão:** o gateway está preparado como módulo de conexão e controle da IA; ele ainda não está operando ponta a ponta.
