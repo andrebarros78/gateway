@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=https://agentgateway.dev/schema/config
+#
+# Entrada IA/GPT -> gateway -> TUNEL-CORE.
+# A chave não é gravada aqui: ela vem do segredo OPENAI_API_KEY.
+
+llm:
+  models:
+    - name: "*"
+      provider: openAI
+      params:
+        apiKey: "$OPENAI_API_KEY"
