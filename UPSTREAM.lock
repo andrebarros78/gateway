@@ -1,0 +1,13 @@
+# Componente externo fixado — não é um vínculo Git
+
+name=agentgateway
+repository=https://github.com/agentgateway/agentgateway
+release=v1.4.1
+release_page=https://github.com/agentgateway/agentgateway/releases/tag/v1.4.1
+license=Apache-2.0
+role=IA/GPT -> gateway -> TUNEL-CORE
+acquisition=official-release-only
+verification=release-integrity-required-before-installation
+git_submodule=false
+git_fork=false
+secrets=external-secret-store-only
