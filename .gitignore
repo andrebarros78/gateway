@@ -1,0 +1,14 @@
+# Segredos e execução local
+.env
+.env.*
+!.env.example
+secrets/
+runtime/
+data/
+logs/
+
+# Editor e sistema
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
