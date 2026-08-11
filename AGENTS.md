@@ -1,14 +1,22 @@
 # Instruções do módulo gateway
 
-## Missão
-
-O gateway é uma peça independente entre a IA e o TUNEL-CORE:
+## Arquitetura obrigatória
 
 ```
-IA/GPT → gateway → TUNEL-CORE → Windows MCP → computadores
+Pipo
+  ↓
+gateway
+  ↓
+TUNEL-CORE
+  ↓
+Supervisor / Watchdog
+  ↓
+Túnel
+  ↓
+Windows MCP
 ```
 
-Ele controla a entrada, a autenticação, os limites e a observabilidade. Ele não substitui o TUNEL-CORE nem executa tarefas diretamente nos computadores.
+O gateway recebe chamadas de IA do Pipo. Ele controla entrada, autenticação, limites, roteamento e observabilidade. Não substitui o TUNEL-CORE, o Supervisor / Watchdog, o túnel nem o Windows MCP.
 
 ## Limites obrigatórios
 
@@ -22,7 +30,7 @@ Ele controla a entrada, a autenticação, os limites e a observabilidade. Ele n�
 
 - A GitHub Action valida a chave e a configuração sob execução manual.
 - GitHub Actions não é ambiente de operação permanente.
-- A operação contínua do gateway será instalada no TUNEL-CORE somente após a estabilidade comprovada do Windows MCP.
+- O Supervisor / Watchdog deve iniciar e recuperar TUNEL-CORE e túnel antes de liberar passagem ao Windows MCP.
 - O gateway deve iniciar sem depender de caminhos em `D:\`, pendrives ou perfil do Windows.
 
 ## Critério de conclusão de uma mudança
@@ -32,7 +40,7 @@ Uma mudança só é concluída quando houver:
 1. configuração validada;
 2. segredo fora do código;
 3. teste de conexão aprovado;
-4. reinício e recuperação comprovados no TUNEL-CORE;
+4. reinício e recuperação comprovados em toda a cadeia;
 5. nenhuma exposição de credencial no repositório.
 
 ## Comunicação de execução
