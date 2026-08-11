@@ -1,0 +1,38 @@
+name: Validar conexao OpenAI
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validar-api:
+    name: Validar chave da API
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Confirmar que o segredo foi cadastrado
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          if [ -z "$OPENAI_API_KEY" ]; then
+            echo "::error::Cadastre o segredo OPENAI_API_KEY antes de executar esta Action."
+            exit 1
+          fi
+
+      - name: Verificar acesso da chave
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          curl --fail-with-body --silent --show-error --max-time 30 \
+            --request GET \
+            --header "Authorization: Bearer $OPENAI_API_KEY" \
+            https://api.openai.com/v1/models > /dev/null
+          echo "OPENAI_API_CONNECTION=OK"
+
+      - name: Confirmar configuracao do gateway
+        run: |
+          test -f config/agentgateway.yaml
+          grep -F 'apiKey: "$OPENAI_API_KEY"' config/agentgateway.yaml
+          echo "GATEWAY_CONFIGURATION=OK"
